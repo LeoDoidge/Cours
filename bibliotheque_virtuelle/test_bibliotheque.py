@@ -1,5 +1,12 @@
 import unittest
-from bibliotheque import Livre, AjouterLivre, RechercherLivre, ModifierLivre, SupprimerLivre
+from bibliotheque import (
+    Livre,
+    AjouterLivre,
+    RechercherLivre,
+    ModifierLivre,
+    SupprimerLivre,
+)
+
 
 class TestBibliotheque(unittest.TestCase):
 
@@ -7,8 +14,15 @@ class TestBibliotheque(unittest.TestCase):
         """Initialisation de la bibliothèque avant chaque test."""
         self.library = {}
         self.book_pointer = 1  # Initialisation du pointeur de livre
-        self.book1 = Livre(titre="1984", auteur="George Orwell", publication=1949, genre="Dystopie")
-        self.book2 = Livre(titre="Le Petit Prince", auteur="Antoine de Saint-Exupéry", publication=1943, genre="Conte")
+        self.book1 = Livre(
+            titre="1984", auteur="George Orwell", publication=1949, genre="Dystopie"
+        )
+        self.book2 = Livre(
+            titre="Le Petit Prince",
+            auteur="Antoine de Saint-Exupéry",
+            publication=1943,
+            genre="Conte",
+        )
 
     def test_ajouter_livre(self):
         self.book_pointer = AjouterLivre(self.library, self.book_pointer, self.book1)
@@ -18,8 +32,10 @@ class TestBibliotheque(unittest.TestCase):
     def test_afficher_livres(self):
         self.book_pointer = AjouterLivre(self.library, self.book_pointer, self.book1)
         self.book_pointer = AjouterLivre(self.library, self.book_pointer, self.book2)
-        livres_list = [f"ID {book_id}: {livre.titre}, Auteur: {livre.auteur}, Année: {livre.publication}, Genre: {livre.genre}" 
-                       for book_id, livre in self.library.items()]
+        livres_list = [
+            f"ID {book_id}: {livre.titre}, Auteur: {livre.auteur}, Année: {livre.publication}, Genre: {livre.genre}"
+            for book_id, livre in self.library.items()
+        ]
         self.assertEqual(len(livres_list), 2)
         self.assertIn("1984", livres_list[0])
         self.assertIn("Le Petit Prince", livres_list[1])
@@ -47,6 +63,7 @@ class TestBibliotheque(unittest.TestCase):
         # Vérifier la suppression d'un livre inexistant
         resultat = SupprimerLivre(self.library, 99)
         self.assertFalse(resultat)
+
 
 if __name__ == "__main__":
     unittest.main()
